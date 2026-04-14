@@ -13,7 +13,7 @@ class LoginPage {
   }
 
   clickLogin() {
-    cy.get('input[type="submit"]').click();
+    cy.get('.btn').click();
   }
 
   clickRegister() {

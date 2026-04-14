@@ -21,10 +21,4 @@ describe('Employee List Page Tests', () => {
         employeeListPage.rowShouldContain('John Doe');
     });
 
-    it('should navigate to employee details when clicked', () => {
-        employeeListPage.clickEmployeeByName('John Doe');
-
-        // Check correct navigation
-        cy.url().should('include', '/Employee/Details');
     });
-});

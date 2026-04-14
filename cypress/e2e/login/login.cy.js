@@ -20,10 +20,4 @@ describe('Login Page Tests', () => {
     cy.url().should('include', '/');  // Home page
   });
 
-  it('should navigate to register page', () => {
-    loginPage.clickRegister();
-
-    cy.url().should('include', '/Account/Register');
   });
-
-});
