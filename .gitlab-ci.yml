@@ -14,8 +14,11 @@ cypress:
   stage: test
   script:
     - npm ci --cache .npm --prefer-offline
+    - npm install mocha-junit-reporter --save-dev
+    - mkdir -p results
     - npx cypress verify
-    - npx cypress run --reporter mocha-junit-reporter --reporter-options mochaFile=results/junit-[hash].xml
+    - npx cypress run --reporter mocha-junit-reporter --reporter-options mochaFile=results/junit.xml
+
   artifacts:
     when: always
     paths:
@@ -23,5 +26,5 @@ cypress:
       - cypress/videos
       - results
     reports:
-      junit: results/junit-*.xml
+      junit: results/junit.xml
     expire_in: 1 week
