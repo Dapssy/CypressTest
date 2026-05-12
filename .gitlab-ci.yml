@@ -1,0 +1,27 @@
+image: cypress/browsers:node20.11.0-chrome120
+
+stages:
+  - test
+
+cache:
+  key: ${CI_COMMIT_REF_SLUG}
+  paths:
+    - .npm
+    - node_modules
+    - cache/Cypress
+
+cypress:
+  stage: test
+  script:
+    - npm ci --cache .npm --prefer-offline
+    - npx cypress verify
+    - npx cypress run --reporter mocha-junit-reporter --reporter-options mochaFile=results/junit-[hash].xml
+  artifacts:
+    when: always
+    paths:
+      - cypress/screenshots
+      - cypress/videos
+      - results
+    reports:
+      junit: results/junit-*.xml
+    expire_in: 1 week

@@ -1,0 +1,17 @@
+{
+  "name": "cypress-qa-task",
+  "version": "1.0.0",
+  "scripts": {
+    "cy:open": "cypress open",
+    "cy:run": "cypress run"
+  },
+  "devDependencies": {
+    "ajv": "^8.17.1",
+    "ajv-formats": "^3.0.1",
+    "chai-json-schema": "^1.5.1",
+    "cypress": "^14.0.0",
+    "cypress-mochawesome-reporter": "^3.8.2",
+    "dotenv": "^16.5.0",
+    "mocha-junit-reporter": "^2.2.1"
+  }
+}
