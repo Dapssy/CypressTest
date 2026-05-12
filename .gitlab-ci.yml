@@ -1,4 +1,4 @@
-image: cypress/browsers:node18.16.0-chrome114
+image: cypress/included:13.13.0
 
 stages:
   - test
