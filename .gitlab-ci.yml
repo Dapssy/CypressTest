@@ -2,7 +2,6 @@ stages:
   - test
 
 variables:
-  # Speeds up npm + avoids Cypress re-download when cache hits
   npm_config_cache: "$CI_PROJECT_DIR/.npm"
   CYPRESS_CACHE_FOLDER: "$CI_PROJECT_DIR/.cache/Cypress"
 
@@ -18,19 +17,21 @@ cypress:
   stage: test
   image:
     name: cypress/included:13.13.0
-    entrypoint: [""]          # 👈 critical: lets GitLab run its own shell
-  # Secrets configured in GitLab → Settings → CI/CD → Variables (masked + protected)
-  # CYPRESS_BASE_URL, CYPRESS_API_URL, CYPRESS_API_KEY, CYPRESS_USERNAME, CYPRESS_PASSWORD
+    entrypoint: [""]
+  # Required GitLab CI/CD Variables (Masked, NOT Protected unless branch is protected):
+  #   CYPRESS_BASE_URL, CYPRESS_API_URL, CYPRESS_API_KEY, CYPRESS_USERNAME, CYPRESS_PASSWORD
   script:
     - npm ci
     - npx cypress verify
-    - npx cypress run --reporter mocha-junit-reporter
+    # Sanity check — remove once env vars are confirmed present
+    - 'echo "BASE=${CYPRESS_BASE_URL:-MISSING} API=${CYPRESS_API_URL:-MISSING}"'
+    - npx cypress run
   artifacts:
     when: always
     expire_in: 1 week
     paths:
       - cypress/screenshots
       - cypress/videos
-      - results
+      - reports
     reports:
-      junit: results/*.xml
+      junit: reports/*.xml
