@@ -1,4 +1,5 @@
 describe('ReqRes API schema validation', () => {
+  
   it('validates users response schema', () => {
     cy.fixture('userSchema').then((schema) => {
       cy.request({
